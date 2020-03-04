@@ -47,7 +47,7 @@ namespace ProjectPlanner.Migrations
                             Id = 1,
                             CreatedDate = new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Herramienta para calcular los viaticos de vuelo",
-                            EstimatedDate = new DateTime(2020, 3, 9, 16, 15, 20, 0, DateTimeKind.Local).AddTicks(8452),
+                            EstimatedDate = new DateTime(2020, 3, 9, 16, 21, 14, 385, DateTimeKind.Local).AddTicks(6517),
                             Name = "Calculadora de Viaticos",
                             Status = "Pending"
                         },
@@ -56,7 +56,7 @@ namespace ProjectPlanner.Migrations
                             Id = 2,
                             CreatedDate = new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Herramienta para calcular los tiempos limites de vuelo",
-                            EstimatedDate = new DateTime(2020, 3, 14, 16, 15, 20, 2, DateTimeKind.Local).AddTicks(6269),
+                            EstimatedDate = new DateTime(2020, 3, 14, 16, 21, 14, 387, DateTimeKind.Local).AddTicks(2899),
                             Name = "Calculadora de Vencimiento",
                             Status = "In Progress"
                         },
@@ -65,7 +65,7 @@ namespace ProjectPlanner.Migrations
                             Id = 3,
                             CreatedDate = new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Herramienta para llevar el control de los proyectos",
-                            EstimatedDate = new DateTime(2020, 4, 3, 16, 15, 20, 2, DateTimeKind.Local).AddTicks(6447),
+                            EstimatedDate = new DateTime(2020, 4, 3, 16, 21, 14, 387, DateTimeKind.Local).AddTicks(3043),
                             Name = "Todo List",
                             Status = "Completed"
                         });
