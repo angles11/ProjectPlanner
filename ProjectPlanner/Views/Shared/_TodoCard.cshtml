@@ -1,0 +1,23 @@
+﻿@model Todo
+
+
+<li class="col-sm-12 col-md-12">
+    <div class="card text-center projectItem">
+        <div class="card-header">
+            <h5 class="card-title">@Model.Name</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text text-left">@Model.Description</p>
+        </div>
+        <div class="card-footer text-right">            
+            <a class="btn btn-warning text-white btnProject"
+               asp-controller="Projects" asp-action="Edit" asp-route-projectId="@Model.TodoId">
+                Edit <i class="fas fa-edit"></i>
+            </a>
+            <a class="btn btn-danger btnProject"
+               asp-controller="Todos" asp-action="Delete" asp-route-todoId="@Model.TodoId">
+                Delete <i class="fas fa-trash"></i>
+            </a>
+        </div>
+    </div>
+</li>

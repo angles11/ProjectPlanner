@@ -1,0 +1,190 @@
+﻿.projectItem {
+    background-color: #27293d;
+    margin-bottom: 2em;
+    color: white;
+}
+
+.btnProject {
+    font-size: 0.8em;
+    margin-left: 1%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.card {
+    border: none;
+}
+
+.card-title {
+    display: block;
+    margin: 0;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}
+
+.card-body {
+    background-color: #0c5460;
+}
+
+.btn {
+    letter-spacing: .1em;
+}
+
+.btn-primary {
+    color: white;
+    background-color: #0c5460;
+    border-color: #0c5460;
+}
+
+    .btn-primary:hover {
+        background-color: #0b4852;
+        border-color: #0a4a54;
+    }
+
+.card-footer {
+    background-color: white;
+}
+
+.newProject {
+    background-color: #0c5460;
+    border-radius: 0.5em;
+    font-size: 0.9em;
+    color: white;
+}
+
+    .newProject:hover {
+        background-color: #3D2729;
+        font-size: 1em;
+        border-radius: 0.5em;
+        color: white;
+    }
+
+.searchbar {
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #0c5460;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.search_input {
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    line-height: 40px;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_input {
+    padding: 0 10px;
+    width: 450px;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_icon {
+    background: white;
+    color: #3D2729;
+}
+
+.search_icon {
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    background-color: transparent;
+    border: none;
+}
+
+.projectTitle h1 {
+    padding: 4px 0;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status {
+    font-size: 14px;
+    letter-spacing: .1em;
+    font-weight: 200;
+    color: #8d8989;
+}
+
+.btnStatus {
+    background-color: #27293d;
+    color: white;
+    font-size: 14px;
+}
+
+    .btnStatus:hover {
+        background-color: #3D2729;
+        color: white;
+        font-size: 14px;
+    }
+
+.dropdown-menu {
+    -webkit-transition: .5s ease-out;
+    transition:  .5s ease-out;
+    opacity: 0;
+    display: block;
+    width: 50%;
+}
+
+.show .dropdown-menu {
+    opacity: 1;  
+    width: 50%;
+
+}
+
+.dropdown-item:hover {
+    background-color: #0c5460;
+    color: white;
+}
+
+.progress {
+    color: rgb(194, 189, 189);
+    height: 10px;
+    background-color: white;
+}
+
+    .progress .progress-bar {
+        background-color: #28a745;
+        font-size: 0.9em;
+        font-weight: 600;
+        animation-name: animateBar;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in-out;
+        animation-duration: 1.5s;
+        color: black;        
+    }
+
+@keyframes animateBar {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.completedSpan {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8d8989;
+}
+
+.success {
+    color: green;
+}

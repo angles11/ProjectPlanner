@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectPlanner.Migrations
 {
-    public partial class InitialCommit : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,17 +11,17 @@ namespace ProjectPlanner.Migrations
                 name: "Projects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ProjectId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Description = table.Column<string>(maxLength: 200, nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     EstimatedDate = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true)
+                    PercentageOfCompletion = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,13 +30,12 @@ namespace ProjectPlanner.Migrations
                 {
                     TodoId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    MyProperty = table.Column<int>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Description = table.Column<string>(maxLength: 200, nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     EstimatedDate = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true)
+                    Status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,24 +44,24 @@ namespace ProjectPlanner.Migrations
                         name: "FK_Todos_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id",
+                        principalColumn: "ProjectId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "Projects",
-                columns: new[] { "Id", "CreatedDate", "Description", "EstimatedDate", "Name", "Status" },
-                values: new object[] { 1, new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local), "Herramienta para calcular los viaticos de vuelo", new DateTime(2020, 3, 9, 16, 21, 14, 385, DateTimeKind.Local).AddTicks(6517), "Calculadora de Viaticos", "Pending" });
+                columns: new[] { "ProjectId", "CreatedDate", "Description", "EstimatedDate", "Name", "PercentageOfCompletion" },
+                values: new object[] { 1, new DateTime(2020, 3, 24, 0, 0, 0, 0, DateTimeKind.Local), "Herramienta para calcular los viaticos de vuelo", new DateTime(2020, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), "Calculadora de Viaticos", 0.00m });
 
             migrationBuilder.InsertData(
                 table: "Projects",
-                columns: new[] { "Id", "CreatedDate", "Description", "EstimatedDate", "Name", "Status" },
-                values: new object[] { 2, new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local), "Herramienta para calcular los tiempos limites de vuelo", new DateTime(2020, 3, 14, 16, 21, 14, 387, DateTimeKind.Local).AddTicks(2899), "Calculadora de Vencimiento", "In Progress" });
+                columns: new[] { "ProjectId", "CreatedDate", "Description", "EstimatedDate", "Name", "PercentageOfCompletion" },
+                values: new object[] { 2, new DateTime(2020, 3, 24, 0, 0, 0, 0, DateTimeKind.Local), "Herramienta para calcular los tiempos limites de vuelo", new DateTime(2020, 4, 3, 0, 0, 0, 0, DateTimeKind.Local), "Calculadora de Vencimiento", 0.00m });
 
             migrationBuilder.InsertData(
                 table: "Projects",
-                columns: new[] { "Id", "CreatedDate", "Description", "EstimatedDate", "Name", "Status" },
-                values: new object[] { 3, new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local), "Herramienta para llevar el control de los proyectos", new DateTime(2020, 4, 3, 16, 21, 14, 387, DateTimeKind.Local).AddTicks(3043), "Todo List", "Completed" });
+                columns: new[] { "ProjectId", "CreatedDate", "Description", "EstimatedDate", "Name", "PercentageOfCompletion" },
+                values: new object[] { 3, new DateTime(2020, 3, 24, 0, 0, 0, 0, DateTimeKind.Local), "Herramienta para llevar el control de los proyectos", new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Local), "Todo List", 0.00m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Todos_ProjectId",

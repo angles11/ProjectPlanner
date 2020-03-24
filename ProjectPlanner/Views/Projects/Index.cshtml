@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Project>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="Stylesheet" href="~/css/projects.css" type="text/css" />
+
+<ul class="list-group">
+    <li class="col-sm-12 col-md-12 ">
+        <div class="container mt-3">
+            <div class="d-flex justify-content-center h-100">
+                <form class="searchbar" asp-controller="Projects" asp-action="Index">
+                    <input class="search_input" type="text" name="searchString" placeholder="Name..." autocomplete="off">
+                    <button class="search_icon" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </li>
+    <li class="col-sm-12 col-md-12 text-right">
+        <a asp-controller="Projects" asp-action="Create"
+           class="btn newProject mt-3 mb-3">New Project</a>
+    </li>
+
+    @foreach (var project in Model)
+    {
+        <partial name="_ProjectCard" model="project" />
+
+    }
+
+</ul>
+

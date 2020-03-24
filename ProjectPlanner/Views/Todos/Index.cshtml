@@ -1,0 +1,93 @@
+﻿@model ProjectPlanner.ViewModels.TodoListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="Stylesheet" href="~/css/projects.css" type="text/css" />
+
+<ul class="list-group">
+    <li class="col-sm-12 col-md-12 ">
+        <div class="container mt-3">
+            <div class="d-flex justify-content-center h-100">
+                <form class="searchbar" asp-controller="Todos" asp-action="Index">
+                    <input class="search_input" type="text" name="searchString" placeholder="Name..." autocomplete="off">
+                    <button class="search_icon" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </li>
+    <li class="col-sm-12 col-md-12">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 projectTitle">
+                <h1>@Model.Project.Name</h1>
+            </div>
+            <div class="col-sm-6 col-md-6 text-right">
+                <a asp-controller="Todos" asp-action="Create" asp-route-projectId="@Model.Project.ProjectId"
+                   class="btn newProject mt-3 mb-3">New Todo</a>
+            </div>
+        </div>
+    </li>
+
+    @foreach (var todo in Model.Todos)
+    {
+        var style = "";
+
+        if (todo.Status == "Completed") style = "color: green";
+        else if (todo.Status == "In progress") style = "color: grey";
+        else style = "color: red";
+
+        <li class="col-sm-12 col-md-12">
+            <div class="card text-center projectItem">
+                <div class="card-header">
+                    <h5 class="card-title">@todo.Name</h5>
+                    <span class="status">Status: <span style="@style">@todo.Status</span></span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-left">@todo.Description</p>
+                </div>
+                <div class="card-footer row p-0">
+                    <div class="col-sm-3 col-md-6 col-xs-3 text-left ">
+                        <div class="dropdown">
+                            <a class="btn btnStatus " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Change Status <i class="fas fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item"
+                                   asp-controller="Todos" asp-action="ChangeStatus" asp-route-status="Pending" asp-route-projectId="@Model.Project.ProjectId" asp-route-todoId="@todo.TodoId">Pending</a>
+                                <a class="dropdown-item"
+                                   asp-controller="Todos" asp-action="ChangeStatus" asp-route-status="In progress" asp-route-projectId="@Model.Project.ProjectId" asp-route-todoId="@todo.TodoId">In progress</a>
+                                <a class="dropdown-item"
+                                   asp-controller="Todos" asp-action="ChangeStatus" asp-route-status="Completed" asp-route-projectId="@Model.Project.ProjectId" asp-route-todoId="@todo.TodoId">Completed</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-6 col-xs-3 text-right ">
+                        <a class="btn btn-warning text-white btnProject"
+                           asp-controller="Todos" asp-action="Edit" asp-route-projectId="@Model.Project.ProjectId" asp-route-todoId="@todo.TodoId">
+                            Edit <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger btnProject"
+                           asp-controller="Todos" asp-action="Delete" asp-route-projectId="@Model.Project.ProjectId" asp-route-todoId="@todo.TodoId">
+                            Delete <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    }
+
+</ul>
+
+<script>
+    $('.dropdown').on('show.bs.dropdown', function () {
+        $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
+    });
+
+    // Add slideUp animation to dropdown
+    $('.dropdown').on('hide.bs.dropdown', function () {
+        $(this).find('.dropdown-menu').first().stop(true, true).slideUp(300);
+    });
+
+</script>

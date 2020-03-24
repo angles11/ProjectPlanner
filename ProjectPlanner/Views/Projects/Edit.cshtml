@@ -1,0 +1,68 @@
+﻿@model Project
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<link rel="stylesheet" href="~/css/projects.css" type="text/css" />
+<link rel="stylesheet" href="~/css/datePicker.css" type="text/css" />
+<link rel="stylesheet" href="~/css/projectForms.css" type="text/css" />
+
+<div class="form-panel ">
+    <div class="form-header">
+        <h1>Create new project</h1>
+    </div>
+    <div class="form-content">
+        <form asp-controller="Projects" asp-action="Edit" asp-route-projectId="@Model.ProjectId">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label "></label>
+                <input asp-for="Name" class="form-control" autocomplete="off" />
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label "></label>
+                <textarea asp-for="Description" class="form-control" autocomplete="off"></textarea>
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimatedDate" class=" control-label"></label>
+                <div class="input-group">
+                    <span class="input-group-prepend input-group-text"><i class="fas fa-calendar-alt"></i>  </span>
+                    <input asp-for="EstimatedDate" type="text" class="form-control datepicker" autocomplete="off" readonly>
+                </div>
+            </div>
+            <div class="text-center mb-1">
+                <span asp-validation-for="EstimatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="create">Save</button>
+            </div>
+            <div class="form-group text-right">
+                <a asp-action="Index"><i class="fa fa-arrow-left fa-xs"></i> Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                dateFormat: 'DD dd M yy',
+                minDate: 0,
+                autoclose: true,
+                showOtherMonths: true,
+                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                autoclose: true,
+                todayHighlight: true,
+            })
+        });
+    </script>
+}

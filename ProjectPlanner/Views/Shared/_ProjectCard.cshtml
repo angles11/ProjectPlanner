@@ -1,0 +1,33 @@
+﻿
+@model Project
+
+
+<li class="col-sm-12 col-md-12">
+    <div class="card text-center projectItem">
+        <div class="card-header">
+            <h5 class="card-title">@Model.Name</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text text-left">@Model.Description</p>
+            <div class="d-inline">
+                <span class="small completedSpan">Completed: </span>
+                <div class="progress">
+                    <div class="progress-bar " role="progressbar" style="width:@(Model.PercentageOfCompletion)%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@Model.PercentageOfCompletion %</div>
+                </div>
+            </div>
+        </div>
+            <div class="card-footer text-right">
+                <a class="btn btn-primary btnProject"
+                   asp-controller="Todos" asp-action="Index" asp-route-projectId="@Model.ProjectId">
+                View <i class="fas fa-folder-open"></i></a>
+                <a class="btn btn-warning text-white btnProject"
+                   asp-controller="Projects" asp-action="Edit" asp-route-projectId="@Model.ProjectId">
+                Edit <i class="fas fa-edit"></i></a>
+                <a class="btn btn-danger btnProject"
+                   asp-controller="Projects" asp-action="Delete" asp-route-projectId="@Model.ProjectId">
+                Delete <i class="fas fa-trash"></i></a>
+            </div>
+    </div>
+</li>
+
+

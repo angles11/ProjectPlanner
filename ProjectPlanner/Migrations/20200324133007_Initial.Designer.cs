@@ -9,8 +9,8 @@ using ProjectPlanner.Data;
 namespace ProjectPlanner.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200304192114_InitialCommit")]
-    partial class InitialCommit
+    [Migration("20200324133007_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace ProjectPlanner.Migrations
 
             modelBuilder.Entity("ProjectPlanner.Models.Project", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProjectId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -28,48 +28,52 @@ namespace ProjectPlanner.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("EstimatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(30);
+
+                    b.Property<decimal>("PercentageOfCompletion")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
+                    b.HasKey("ProjectId");
 
                     b.ToTable("Projects");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            CreatedDate = new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local),
+                            ProjectId = 1,
+                            CreatedDate = new DateTime(2020, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Herramienta para calcular los viaticos de vuelo",
-                            EstimatedDate = new DateTime(2020, 3, 9, 16, 21, 14, 385, DateTimeKind.Local).AddTicks(6517),
+                            EstimatedDate = new DateTime(2020, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             Name = "Calculadora de Viaticos",
-                            Status = "Pending"
+                            PercentageOfCompletion = 0.00m
                         },
                         new
                         {
-                            Id = 2,
-                            CreatedDate = new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local),
+                            ProjectId = 2,
+                            CreatedDate = new DateTime(2020, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Herramienta para calcular los tiempos limites de vuelo",
-                            EstimatedDate = new DateTime(2020, 3, 14, 16, 21, 14, 387, DateTimeKind.Local).AddTicks(2899),
+                            EstimatedDate = new DateTime(2020, 4, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             Name = "Calculadora de Vencimiento",
-                            Status = "In Progress"
+                            PercentageOfCompletion = 0.00m
                         },
                         new
                         {
-                            Id = 3,
-                            CreatedDate = new DateTime(2020, 3, 4, 0, 0, 0, 0, DateTimeKind.Local),
+                            ProjectId = 3,
+                            CreatedDate = new DateTime(2020, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Herramienta para llevar el control de los proyectos",
-                            EstimatedDate = new DateTime(2020, 4, 3, 16, 21, 14, 387, DateTimeKind.Local).AddTicks(3043),
+                            EstimatedDate = new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             Name = "Todo List",
-                            Status = "Completed"
+                            PercentageOfCompletion = 0.00m
                         });
                 });
 
@@ -83,16 +87,17 @@ namespace ProjectPlanner.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("EstimatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MyProperty")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(30);
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("INTEGER");
@@ -109,7 +114,7 @@ namespace ProjectPlanner.Migrations
 
             modelBuilder.Entity("ProjectPlanner.Models.Todo", b =>
                 {
-                    b.HasOne("ProjectPlanner.Models.Project", null)
+                    b.HasOne("ProjectPlanner.Models.Project", "Project")
                         .WithMany("Todos")
                         .HasForeignKey("ProjectId");
                 });

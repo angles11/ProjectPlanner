@@ -27,6 +27,8 @@ namespace ProjectPlanner
         {
             services.AddControllersWithViews();
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +56,11 @@ namespace ProjectPlanner
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                name: "todos",
+                pattern: "projects/{id:int}/todos",
+                defaults: new { controller = "Todos", action = "Index"});
             });
         }
     }
