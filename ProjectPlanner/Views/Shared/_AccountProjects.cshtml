@@ -1,0 +1,45 @@
+﻿@model Project
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="card project-card" style="width:100%">
+        <div class="card-header project-card-header d-flex justify-content-between align-items-center" id="@($"heading{Model.ProjectId}")">
+            <small>@Model.PercentageOfCompletion %</small>
+            <h5 class="project-header m-auto">@Model.Name</h5>
+            <a class="btn collapsed btn-collapse" style="cursor:pointer" data-toggle="collapse" data-target="@($"#collapse{Model.ProjectId}")" aria-expanded="true" aria-controls="@($"collapse{Model.ProjectId}")">
+                <i class="fas fa-caret-down"></i>
+            </a>
+        </div>
+        <div id="@($"collapse{Model.ProjectId}")" class="collapse " aria-labelledby="@($"heading{Model.ProjectId}")" data-parent="#accordion">
+            <div class="card-body">
+                <div class="row">
+                    @{int todoNumber = 0; }
+
+                    @foreach (var todo in Model.Todos)
+                    {
+                        todoNumber++;
+                        var style = "";
+
+                        if (todo.Status == "Completed") style = "color: green";
+                        else if (todo.Status == "In progress") style = "color: grey";
+                        else style = "color: red";
+
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 project-todo">
+                            <div class="row ">
+                                <div class="col-md-1 col-sm-1 col-12 my-auto">
+                                    <span class="badge badge-info badge-pill">@todoNumber</span>
+                                </div>
+                                <div class="col-md-9 col-sm-11 col-12 my-auto">
+                                    <p class="m-0 text-center">@todo.Name</p>
+                                </div>
+                                <div class="col-md-2  col-sm-12 col-12 my-auto text-right">
+                                    <small style="@style">@todo.Status</small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>     

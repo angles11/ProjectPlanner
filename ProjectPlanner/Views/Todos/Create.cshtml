@@ -53,19 +53,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".datepicker").datepicker({
-                dateFormat: 'DD dd M yy',
-                minDate: 0,
-                autoclose: true,
-                showOtherMonths: true,
-                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                autoclose: true,
-                todayHighlight: true,
-            })
-        });
-    </script>
+    <script type="text/javascript" src="~/js/datepicker.js"></script>
 
 }
 

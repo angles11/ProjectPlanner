@@ -1,4 +1,11 @@
-﻿.form {
+﻿.form-content {
+    border: 1px solid #ddd;
+    border-top: 5px solid #0c5460;
+    border-bottom: 5px solid #0c5460;
+    padding:30px 50px 30px 50px;
+}
+
+.form {
     z-index: 15;
     position: relative;
     background: #FFFFFF;
@@ -82,13 +89,13 @@
 
 
 .form-panel {
-    padding: 60px calc(5% + 60px) 60px 60px;
+   margin-top: 50px;
     box-sizing: border-box;
 }
 
 
 .form-header {
-    margin: 0 0 40px;
+    margin: 0 0 10px;
 }
 
     .form-header h1 {
@@ -119,3 +126,4 @@
 .input-group-text {
     border: none;
 }
+

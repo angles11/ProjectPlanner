@@ -1,37 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using ProjectPlanner.Data;
 using ProjectPlanner.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProjectPlanner.Controllers
 {
     [Route("projects")]
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly UserManager<User> _userManager;
 
-        public ProjectsController(IProjectRepository projectRepository)
+        public ProjectsController(IProjectRepository projectRepository, UserManager<User> userManager)
         {
             _projectRepository = projectRepository;
+            _userManager = userManager;
         }
 
         //// GET: Projects
-        
-        public IActionResult Index(string searchString)
+
+        public async Task<IActionResult> Index(string searchString)
         {
-            var projects = _projectRepository.AllProjects.ToList();
+            //var projects = _projectRepository.AllProjects.ToList();
+
+            var user = await _userManager.GetUserAsync(HttpContext.User).ConfigureAwait(true);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var projects = _projectRepository.GetAllProjects(user).ToList();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 searchString.ToLower();
 
                 projects = projects.Where(p => p.Name.ToLower().Contains(searchString)).ToList();
-     
             }
             return View(projects);
         }
@@ -54,7 +64,22 @@ namespace ProjectPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _projectRepository.CreateProject(project);
+                var user = await _userManager.GetUserAsync(HttpContext.User).ConfigureAwait(true);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                try
+                {
+                    await _projectRepository.CreateProject(project, user).ConfigureAwait(true);
+                }
+                catch (ArgumentNullException)
+                {
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return RedirectToAction(nameof(Index));
         }
@@ -68,7 +93,7 @@ namespace ProjectPlanner.Controllers
                 return NotFound();
             }
 
-            var project = await _projectRepository.GetProjectById(projectId);
+            var project = await _projectRepository.GetProjectById(projectId).ConfigureAwait(true);
 
             return View(project);
         }
@@ -82,12 +107,15 @@ namespace ProjectPlanner.Controllers
 
         public async Task<IActionResult> Edit(int projectId, [Bind("Name, Description, EstimatedDate")] Project project)
         {
-            if (projectId == 0) return NotFound();
+            if (project == null || projectId == 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
             if (ModelState.IsValid)
             {
                 project.ProjectId = projectId;
-                await _projectRepository.UpdateProject(project);
+                await _projectRepository.UpdateProject(project).ConfigureAwait(true);
             }
 
             return RedirectToAction(nameof(Index));
@@ -102,7 +130,7 @@ namespace ProjectPlanner.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var project = await _projectRepository.GetProjectById(projectId);
+            var project = await _projectRepository.GetProjectById(projectId).ConfigureAwait(true);
 
             if (project == null)
             {
@@ -116,16 +144,16 @@ namespace ProjectPlanner.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Route("projectId:int/delete")]
-        public async Task<IActionResult> DeleteConfirmed(int projectId )
+        public async Task<IActionResult> DeleteConfirmed(int projectId)
         {
-            await _projectRepository.DeleteProject(projectId);
+            await _projectRepository.DeleteProject(projectId).ConfigureAwait(true);
 
             return RedirectToAction(nameof(Index));
         }
-        
+
         private async Task<bool> ProjectExists(int projectId)
         {
-            return await _projectRepository.ProjectExists(projectId);
+            return await _projectRepository.ProjectExists(projectId).ConfigureAwait(true);
         }
 
 

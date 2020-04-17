@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectPlanner.CustomValidations
 {
-    public class FutureDate : ValidationAttribute
+    public class FutureDateAttribute : ValidationAttribute
     {
-       public override string FormatErrorMessage(string name)
+        public override string FormatErrorMessage(string name)
         {
             return "Date value should be a future date";
         }

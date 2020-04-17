@@ -1,15 +1,14 @@
 ﻿using ProjectPlanner.CustomValidations;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectPlanner.Models
 {
     public class Todo
     {
         public int TodoId { get; set; }
+        public int ProjectId { get; set; }
+
         public Project Project { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -26,7 +25,7 @@ namespace ProjectPlanner.Models
         [DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; }
 
-        [FutureDate]
+        [FutureDateAttribute]
         [DisplayFormat(DataFormatString = "{0:dddd dd MMM yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         [Display(Name = "Estimated Date")]

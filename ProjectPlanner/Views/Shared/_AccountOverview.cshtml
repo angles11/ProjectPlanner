@@ -1,0 +1,111 @@
+﻿@model ProjectPlanner.ViewModels.EditAccountViewModel
+
+<div class="col-md-5 col-sm-12 col-xs-12">
+    <div class="card user-card">
+        <div class="outer-container-avatar card-img-top">
+            <div class="inner-container-avatar">
+                <div class="circle-avatar" style="background-image:url(https://scontent.faep8-1.fna.fbcdn.net/v/t1.0-9/35382350_10214999347309776_4773593074167185408_n.jpg?_nc_cat=105&_nc_sid=85a577&_nc_eui2=AeFPZcTK7tpu-Ny2Hl1pPUA_JAP8dv_25xfw4o2_DUg8r2iWPdO3TrQbtxpIskTmjrEdMUD3N0wIfNKR36Hay9V1jiuJVy3M0z8eDznmJo_8wg&_nc_oc=AQksJvGNi2MU905Plp562SFNkmd5f3v8sFFeKzgLZpt_ldJ2AKo4G5-GNE_yOJXYY68&_nc_ht=scontent.faep8-1.fna&oh=32c5bdd6bf19c12e04ad5a4a6605177a&oe=5EA9E75E)">
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h5>@Model.User.Name  @Model.User.LastName</h5>
+                </li>
+                <li class="list-group-item">
+                    <h6>@Model.User.Position at @Model.User.Company</h6>
+                </li>
+                <li class="list-group-item">
+                    <h7>Projects: <span class="badge badge-info badge-pill">@Model.Projects.Count()</span></h7>
+                </li>
+                <li class="list-group-item">
+                    <h8>Todos: <span class="badge badge-info badge-pill">@Model.Todos.Count()</span></h8>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-7 col-sm-12 col-xs-12 user-overview">
+    <div style="width: 100%">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <span>Name</span>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <p>@Model.User.Name</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <span>Last Name</span>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <p>@Model.User.LastName</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <span>Email</span>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <p>@Model.User.Email</p>
+            </div>
+        </div>
+
+        @if (Model.User.Position != null)
+        {
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <span>Position</span>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <p>@Model.User.Position</p>
+                </div>
+            </div>
+        }
+        @if (Model.User.Experience != null)
+        {
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <span>Experience</span>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <p>@Model.User.Experience</p>
+                </div>
+            </div>
+        }
+        @if (Model.User.Company != null)
+        {
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <span>Company</span>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <p>@Model.User.Company</p>
+                </div>
+            </div>
+        }
+    
+        <div class="row completed-row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <span>Completed Projects</span>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-122">
+                @{
+                    var completedProjects = Model.Projects.Where(p => p.PercentageOfCompletion == 100).ToList().Count;
+                }
+                <p>@completedProjects</p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <span>Completed Todos</span>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @{
+                    var completedTodos = Model.Todos.Where(t => t.Status == "Completed").ToList().Count;
+                }
+                <p>@completedTodos</p>
+            </div>
+        </div>
+    </div>
+</div>

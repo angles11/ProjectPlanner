@@ -1,0 +1,97 @@
+﻿@model ProjectPlanner.ViewModels.RegisterViewModel
+
+@{
+    ViewBag.Title = "User Registration";
+}
+
+<link rel="stylesheet" href="~/css/projectForms.css" type="text/css" />
+
+
+
+<div class="form-panel col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-xs-12">
+    <div class="form-header">
+        <h1>Register</h1>
+    </div>
+    <div class="form-content">
+        <form method="post">           
+            <div class="form-group">
+                <label asp-for="Name" class="control-label "></label>
+                <input asp-for="Name" class="form-control" autocomplete="off" />
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label "></label>
+                <input asp-for="LastName" class="form-control" autocomplete="off"></input>
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label "></label>
+                <input asp-for="Email" class="form-control" autocomplete="off"></input>
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Position" class="control-label "></label>
+                <input asp-for="Position" class="form-control" autocomplete="off"></input>
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Position" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company" class="control-label "></label>
+                <input asp-for="Company" class="form-control" autocomplete="off"></input>
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Experience" class="control-label "></label>
+                <select asp-for="Experience" class="form-control">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Semi Senior">Semi Senior</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Technical Lead">Technical Lead</option>
+                    <option value="Architect">Architect</option>                  
+                </select>               
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Experience" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label "></label>
+                <input asp-for="Password" class="form-control" autocomplete="off"></input>
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label "></label>
+                <input asp-for="ConfirmPassword" class="form-control" autocomplete="off"></input>
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="create">Register</button>
+            </div>
+            <hr />
+            <div class="text-center">
+                <span class="small">Already have an account?</span>
+                <a asp-controller="Account" asp-action="Login">Login now</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+}

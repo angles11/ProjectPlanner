@@ -10,10 +10,10 @@
 
 <div class="form-panel ">
     <div class="form-header">
-        <h1>Edit Task</h1>        
+        <h1>Edit Task</h1>
     </div>
     <div class="form-content">
-        <form asp-controller="Todos" asp-action="Edit" asp-route-todoId ="@Model.Todo.TodoId" asp-route-projectId="@Model.ProjectId">
+        <form asp-controller="Todos" asp-action="Edit" asp-route-todoId="@Model.Todo.TodoId" asp-route-projectId="@Model.ProjectId">
             <div class="form-group">
                 <label asp-for="@Model.Todo.Name" class="control-label "></label>
                 <input asp-for="@Model.Todo.Name" class="form-control" autocomplete="off" />
@@ -52,19 +52,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".datepicker").datepicker({
-                dateFormat: 'DD dd M yy',
-                minDate: 0,
-                autoclose: true,
-                showOtherMonths: true,
-                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                autoclose: true,
-                todayHighlight: true,
-            })
-        });
-    </script>
+    <script type="text/javascript" src="~/js/datepicker.js"></script>
 
 }
 

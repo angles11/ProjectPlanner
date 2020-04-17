@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjectPlanner.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+    <ul class="navbar-nav w-100 justify-content-center">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var user = await UserManager.GetUserAsync(User);
+            <li class="nav-item">
+                <span class="nav-item text-light">Hello @user.Name @user.LastName!</span>
+            </li>
+          
+        }
+    </ul>
+    <ul class="navbar-nav ml-auto w-100 justify-content-end">
+        @if (SignInManager.IsSignedIn(User))
+        {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="cursor: pointer " id="navbarDropdownAccountLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+            <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownAccountLink">
+                <a class="nav-link dropdown-link " asp-controller="Account" asp-action="EditAccount" >Edit Account</a>
+                <a class="nav-link dropdown-link " asp-controller="Account" asp-action="Logout" >Logout <i class="fas fa-sign-out-alt fa-xs"></i></a>
+            </div>
+        </li>        }
+
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Account" asp-action="Login">Login <i class="fa fa-sign-in-alt"></i></a>
+            </li>
+
+        }
+    </ul>

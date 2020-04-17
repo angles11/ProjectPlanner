@@ -1,0 +1,282 @@
+﻿
+.user-profile {
+    margin-top: 60px;
+    padding:0 5px 0 5px;
+}
+
+nav > .nav.nav-tabs {
+    border: none;
+    color: #fff;
+    background: #27293d;
+    border-radius: 0;
+}
+
+nav > div a.nav-item.nav-link,
+nav > div a.nav-item.nav-link.active {
+    border: none;
+    padding: 18px 25px;
+    color: #fff;
+    font-weight: 400;
+    margin-right: 0;
+    background: #272e38;
+    border-radius: 0;
+}
+
+    nav > div a.nav-item.nav-link.active {
+        
+        background: #0c5460;
+    }
+
+        nav > div a.nav-item.nav-link.active:after {
+            content: "";
+            position: relative;
+            bottom: -64px;
+            left: -10%;
+            border: 15px solid transparent;
+            border-top-color: #0c5460;
+        }
+
+.tab-content {
+    margin-top: 5px;
+    background: #fdfdfd;
+    line-height: 25px;
+    border: 1px solid #ddd;
+    border-top: 5px solid #0c5460;
+    border-bottom: 5px solid #0c5460;
+    padding: 30px 25px;
+    min-height: 500px;
+}
+
+nav > div a.nav-item.nav-link:hover,
+nav > div a.nav-item.nav-link:focus {
+    border: none;
+    background: #0c5460;
+    color: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    transition: background 1s linear;
+
+}
+
+/*OVERVIEW TAB STYLES*/
+
+.outer-container-avatar {
+    border-radius: 50%;
+    position: relative;
+    width: 150px;
+    margin: 0 auto;
+}
+
+.inner-container-avatar {
+    border-radius: 50%;
+    padding: 5px;
+    background: #0c5460;
+}
+
+
+.circle-avatar {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    padding-top: 100%;
+    border-radius: 50%;
+    background-position-y: center;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 3px solid white;
+}
+
+.badge-info {
+    background-color: #0c5460;
+}
+
+.user-card {
+    padding: 10px;
+    text-align: center;
+
+}
+
+.list-group-item {
+    border: none;
+}
+
+.user-overview {
+    display: flex;
+    align-items: center;
+
+}
+
+, user-overview.row {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.user-overview span {
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}
+
+
+.user-overview p {
+    color: #0c5460;
+    font-weight: 500;
+    font-family: Calibri;
+}
+
+.card-body h5{
+    font-weight: 600;
+    color: #0c5460;    
+}
+
+.completed-row {
+    background-color: #0c5460;
+    display: flex;
+    align-items: center;
+    margin-top: 70px;
+    
+}
+
+    .completed-row span {
+        color: #fff;
+        font-weight: 600;
+        font-family: Calibri;
+        letter-spacing: normal;
+        text-transform: none;
+        text-align: center;
+        display: block;
+    }
+
+    .completed-row p {
+        color: #fff;
+        text-align: center;
+        display: block;
+        margin: auto;
+        
+    }
+
+
+
+
+/*PROJECTS TAB STYLES*/
+
+.project-card {
+    margin-bottom: 1em;
+    border: none;
+}
+.project-card-header {
+    background: #0c5460;
+    color: white;   
+    border-radius: 5px !important;
+}
+
+.project-header{ 
+    font-weight: 600;
+    text-transform:uppercase;
+    font-size:14px;
+    
+}
+
+.project-todo {
+    background: rgba(0, 0, 0, 0.1);
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+
+}
+
+.tab-header {
+    padding: 10px;
+    color: #000000;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+
+
+/*EDIT TAB STYLES*/
+.form-group {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+
+    .form-group:last-child {
+        margin: 0;
+    }
+
+    .form-group label {
+        display: block;
+        margin: 0 0 10px;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: .2em;
+    }
+
+    .form-group input, .form-group select {
+        outline: none;
+        display: block;
+        background: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        border: 0;
+        border-radius: 4px;
+        box-sizing: border-box;       
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: 500;
+        -webkit-transition: 0.3s ease;
+        transition: 0.3s ease;
+    }
+
+
+        .form-group input:focus {
+            color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 0 0.2rem #0c5460;
+        }
+
+        .form-group select:focus {
+            color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 0 0.2rem #0c5460;
+        }
+
+
+.edit-user-btn {
+    background: #27293d;
+    width: 40%;
+    border: 0;
+    border-radius: 4px;
+    padding: 7px 20px;
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+    .edit-user-btn:hover {
+        background: #0a4650;
+        color: #fff;
+        transition: 1s linear;
+    }
+
+.edit-password-btn {
+    background: #0c5460;
+    width: 100%;
+    padding: 7px 20px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-top: 20px;
+
+}
+
+.edit-password-btn:hover{
+    color:white;
+}

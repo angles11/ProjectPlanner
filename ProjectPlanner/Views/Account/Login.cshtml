@@ -1,0 +1,67 @@
+﻿@model ProjectPlanner.ViewModels.LoginViewModel
+
+
+@{
+    ViewBag.Title = "User Login";
+}
+
+<link rel="stylesheet" href="~/css/projectForms.css" type="text/css" />
+
+
+
+<div class="form-panel col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-xs-12">
+    <div class="form-header">
+        <h1>Login</h1>
+    </div>
+    <div class="form-content">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Email" class="control-label "></label>
+                <input asp-for="Email" class="form-control" autocomplete="off" />
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label "></label>
+                <input asp-for="Password" class="form-control" autocomplete="off">
+            </div>
+            <div class="text-center">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-check p-0 mb-3">
+                <input type="checkbox" asp-for="RememberMe" />
+                <label asp-for="RememberMe" class="form-check-label"></label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="create">Login</button>
+            </div>
+            <hr />
+            <div class="text-center">
+                <span>Or login with</span>
+            </div>
+            <br />
+        </form>
+        <form method="post" asp-action="ExternalLogin">
+            <div>
+                <button type="submit" class="btn btn-block btn-danger" name="provider" value="Google"><i class="fab fa-google social-icon"></i></button>
+                <button type="submit" class="btn btn-block btn-primary" name="provider" value="Facebook"><i class="fab fa-facebook social-icon"></i></button>
+                <button type="submit" class="btn btn-block btn-dark" name="provider" value="Microsoft"><i class="fab fa-microsoft social-icon"></i></button>                
+            </div>
+        </form>
+        <hr />
+        <div class="text-center">
+            <span class="small">Not a member?</span>
+            <a asp-controller="Account" asp-action="Register">Sign up now</a>
+        </div>
+        <div class="text-center">
+            <a asp-controller="Account" asp-action="ForgotPassword">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+}

@@ -2,7 +2,6 @@
 using ProjectPlanner.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProjectPlanner.Data
@@ -18,14 +17,14 @@ namespace ProjectPlanner.Data
 
         public async Task<Project> GetProjectById(int projectId)
         {
-            var project = await _dataContext.Projects.Include(x => x.Todos).FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            var project = await _dataContext.Projects.Include(x => x.Todos).FirstOrDefaultAsync(x => x.ProjectId == projectId).ConfigureAwait(true);
 
             return project;
         }
 
         public async Task<IEnumerable<Todo>> AllTodosByProjectId(int projectId)
         {
-            var project = await GetProjectById(projectId);
+            var project = await GetProjectById(projectId).ConfigureAwait(true);
 
             var todos = project.Todos;
 
@@ -34,7 +33,12 @@ namespace ProjectPlanner.Data
 
         public async Task CreateTodo(int projectId, Todo todo)
         {
-            var project = await GetProjectById(projectId);
+            if(projectId == 0 || todo == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var project = await GetProjectById(projectId).ConfigureAwait(true);
 
             var newTodo = new Todo
             {
@@ -49,28 +53,33 @@ namespace ProjectPlanner.Data
 
             _dataContext.Projects.Update(project);
 
-            await _dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync().ConfigureAwait(true);
         }
 
         public async Task DeleteTodo(int todoId)
         {
-            var todo = await GetTodoById(todoId);
+            var todo = await GetTodoById(todoId).ConfigureAwait(true);
 
             _dataContext.Remove(todo);
-            await _dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync().ConfigureAwait(true);
         }
 
-        
+
         public async Task<Todo> GetTodoById(int todoId)
         {
-            var todo = await _dataContext.Todos.FirstOrDefaultAsync(x => x.TodoId == todoId);
+            var todo = await _dataContext.Todos.FirstOrDefaultAsync(x => x.TodoId == todoId).ConfigureAwait(true);
 
             return todo;
         }
 
         public async Task UpdateTodo(Todo todo)
-        {
-            var editedTodo = await GetTodoById(todo.TodoId);
+        {   
+            if (todo == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var editedTodo = await GetTodoById(todo.TodoId).ConfigureAwait(true);
 
             if (editedTodo != null)
             {
@@ -79,19 +88,19 @@ namespace ProjectPlanner.Data
                 editedTodo.EstimatedDate = todo.EstimatedDate;
 
                 _dataContext.Todos.Update(editedTodo);
-                await _dataContext.SaveChangesAsync();
+                await _dataContext.SaveChangesAsync().ConfigureAwait(true);
             }
         }
 
         public async Task ChangeTodoStatus(int todoId, string status)
         {
-            var todo = await GetTodoById(todoId);
+            var todo = await GetTodoById(todoId).ConfigureAwait(true);
 
             todo.Status = status;
 
             _dataContext.Todos.Update(todo);
-            await _dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync().ConfigureAwait(true);
         }
-       
+
     }
 }

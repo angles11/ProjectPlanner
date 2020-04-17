@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Data;
 using ProjectPlanner.Models;
 using ProjectPlanner.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProjectPlanner.Controllers
 {
-    
+
     public class TodosController : Controller
     {
         private readonly ITodoRepository _todoRepository;
@@ -27,12 +23,13 @@ namespace ProjectPlanner.Controllers
         [Route("projects/{projectId:int}/todos")]
         public async Task<IActionResult> Index([FromRoute]int projectId, string searchString)
         {
-            var todos =  await _todoRepository.AllTodosByProjectId(projectId);
-            var project = await _todoRepository.GetProjectById(projectId);
+            var todos = await _todoRepository.AllTodosByProjectId(projectId).ConfigureAwait(true);
+            var project = await _todoRepository.GetProjectById(projectId).ConfigureAwait(true);
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 searchString.ToLower();
+
                 todos = todos.Where(t => t.Name.ToLower().Contains(searchString)).ToList();
             }
 
@@ -56,12 +53,12 @@ namespace ProjectPlanner.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("projects/{projectId:int}/todos/create")]
-        public async Task<IActionResult> Create([Bind("Name,Description,EstimatedDate")] Todo todo , int projectId)
-        {            
+        public async Task<IActionResult> Create([Bind("Name,Description,EstimatedDate")] Todo todo, int projectId)
+        {
             if (ModelState.IsValid)
             {
-                await _todoRepository.CreateTodo(projectId, todo);
-                await _projectRepository.CalculateCompletion(projectId);
+                await _todoRepository.CreateTodo(projectId, todo).ConfigureAwait(true);
+                await _projectRepository.CalculateCompletion(projectId).ConfigureAwait(true);
             }
             return RedirectToRoute("todos", new { id = projectId });
         }
@@ -75,7 +72,7 @@ namespace ProjectPlanner.Controllers
                 return NotFound();
             }
 
-            var todo = await _todoRepository.GetTodoById(todoId);
+            var todo = await _todoRepository.GetTodoById(todoId).ConfigureAwait(true);
 
             var model = new TodoViewModel
             {
@@ -95,12 +92,15 @@ namespace ProjectPlanner.Controllers
 
         public async Task<IActionResult> Edit(int projectId, int todoId, [Bind("Name, Description, EstimatedDate")] Todo todo)
         {
-            if (todoId == 0 ) return NotFound();
+            if (todoId == 0 || projectId == 0 || todo == null)
+            {
+                return RedirectToAction("Index", "Projects");
+            }
 
             if (ModelState.IsValid)
             {
                 todo.TodoId = todoId;
-                await _todoRepository.UpdateTodo(todo);
+                await _todoRepository.UpdateTodo(todo).ConfigureAwait(true);
             }
 
             return RedirectToRoute("todos", new { id = projectId });
@@ -110,9 +110,12 @@ namespace ProjectPlanner.Controllers
         [Route("projects/{projectId:int}/todos/{todoId:int}/delete")]
         public async Task<IActionResult> Delete(int todoId)
         {
-            if (todoId == 0 ) return NotFound();
-           
-            var todo = await _todoRepository.GetTodoById(todoId);
+            if (todoId == 0)
+            {
+                return NotFound();
+            }
+
+            var todo = await _todoRepository.GetTodoById(todoId).ConfigureAwait(true);
 
             if (todo == null)
             {
@@ -129,20 +132,20 @@ namespace ProjectPlanner.Controllers
         [Route("projects/{projectId:int}/todos/{todoId:int}/delete")]
         public async Task<IActionResult> DeleteConfirmed(int projectId, int todoId)
         {
-            await _todoRepository.DeleteTodo(todoId);
+            await _todoRepository.DeleteTodo(todoId).ConfigureAwait(true);
 
-            await _projectRepository.CalculateCompletion(projectId);
+            await _projectRepository.CalculateCompletion(projectId).ConfigureAwait(true);
 
-            return RedirectToRoute("todos", new {id = projectId });
+            return RedirectToRoute("todos", new { id = projectId });
         }
 
-        
-        [Route ("projects/{projectId:int}/todos/{todoId:int}/status")]
+
+        [Route("projects/{projectId:int}/todos/{todoId:int}/status")]
         public async Task<IActionResult> ChangeStatus(int todoId, int projectId, string status)
         {
-            await _todoRepository.ChangeTodoStatus( todoId,  status);
+            await _todoRepository.ChangeTodoStatus(todoId, status).ConfigureAwait(true);
 
-            await _projectRepository.CalculateCompletion(projectId);
+            await _projectRepository.CalculateCompletion(projectId).ConfigureAwait(true);
 
             return RedirectToRoute("todos", new { id = projectId });
         }

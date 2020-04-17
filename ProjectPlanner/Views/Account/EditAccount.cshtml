@@ -1,0 +1,167 @@
+﻿@model ProjectPlanner.ViewModels.EditAccountViewModel
+
+@{
+    ViewData["Title"] = "EditAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/profile.css" type="text/css" />
+
+
+<div class="container user-profile">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="overview-tab" data-toggle="tab" href="#nav-overview" role="tab" aria-controls="nav-overview" aria-selected="true">Overview</a>
+                    <a class="nav-item nav-link" id="projects-tab" data-toggle="tab" href="#nav-projects" role="tab" aria-controls="nav-projects" aria-selected="false">Projects</a>
+                    <a class="nav-item nav-link" id="edit-tab" data-toggle="tab" href="#nav-edit" role="tab" aria-controls="nav-edit" aria-selected="false">Edit</a>
+                </div>
+            </nav>
+            <div class="tab-content " id="nav-tabContent">
+                <div class="tab-pane fade show active" style="width: 100%" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview">
+                    <div class="row">
+                        <partial name="_AccountOverview" />
+                    </div>
+                </div>
+                <div class="tab-pane fade" style="width: 100%" id="nav-projects" role="tabpanel" aria-labelledby="nav-projects">
+                    <div class="row" id="accordion">
+
+                        <div class="col-12 text-center tab-header">
+                            <h4>Your projects</h4>
+                        </div>
+
+                        @if (!Model.Projects.Any())
+                        {
+                            <div class="col-12 text-center ">
+                                <p class="text-muted">You have no projects in your inventory</p>
+                            </div>
+                        }
+                        @foreach (var project in Model.Projects)
+                        {
+                            <partial name="_AccountProjects" model="project" />
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane fade" style="width: 100%" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit">
+                    <div class="row">
+                        <div class="col-12 text-center tab-header">
+                            <h4>Edit your Account</h4>
+                        </div>
+                        <div class="col-12">
+                            <form asp-controller="Account" asp-action="EditAccount">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.User.Name" class="control-label"></label>
+                                            <input asp-for="@Model.User.Name" class="form-control" autocomplete="off" />
+                                        </div>
+                                        <div class="text-center">
+                                            <span asp-validation-for="@Model.User.Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.User.LastName" class="control-label"></label>
+                                            <input asp-for="@Model.User.LastName" class="form-control" autocomplete="off" />
+                                        </div>
+                                        <div class="text-center">
+                                            <span asp-validation-for="@Model.User.LastName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.User.Position" class="control-label"></label>
+                                            <input asp-for="@Model.User.Position" class="form-control" autocomplete="off" />
+                                        </div>
+                                        <div class="text-center">
+                                            <span asp-validation-for="@Model.User.Position" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.User.Company" class="control-label"></label>
+                                            <input asp-for="@Model.User.Company" class="form-control" autocomplete="off" />
+                                        </div>
+                                        <div class="text-center">
+                                            <span asp-validation-for="@Model.User.Company" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.User.Experience" class="control-label"></label>
+                                            <select asp-for="@Model.User.Experience" class="form-control">
+                                                <option value="Junior">Junior</option>
+                                                <option value="Semi Senior">Semi Senior</option>
+                                                <option value="Senior">Senior</option>
+                                                <option value="Technical Lead">Technical Lead</option>
+                                                <option value="Architect">Architect</option>
+                                            </select>
+                                        </div>
+                                        <div class="text-center">
+                                            <span asp-validation-for="@Model.User.Experience" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="form-group justify-content-center">
+                                            <button type="submit" class="btn edit-user-btn">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <hr />
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="row">
+                                @if (!Model.User.IsExternal)
+                                {
+                                    <div class="col-md-6 col-sm-6 offset-md-3 offset-sm-3 col-12">
+                                        <partial name="_AccountEditPassword" model="new EditPasswordViewModel()" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+
+        success = function (response) {
+
+            if (response.succeeded) {
+                $('#successChange').text("Your password has being changed.");
+            }
+            else {
+                $('#failedChange').text(response.errors[0].description);
+            }
+
+            $('#paswordForm').trigger('reset');
+        }
+
+        $('#passwordInput').on(function () {
+            $('#failedChange').empty();
+        });
+
+        $('#passwordModal').on('hidden.bs.hidden.bs.modal', function () {
+            $('#passwordForm').trigger("reset");
+            
+            $('#failedChange, #successChange').empty();
+        });
+
+    </script>
+
+}
